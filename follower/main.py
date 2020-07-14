@@ -18,11 +18,6 @@ parser.add_argument('--clean-model', type=bool, default=True,
                     help='clean checkpoint and saved_model')
 args = parser.parse_args()
 
-args.save_checkpoint_steps = int(os.environ['CHECKPOINT_STEPS'])
-args.checkpoint_path = os.environ["CHECKPOINT_PATH"]
-args.export_path = os.environ["EXPORT_PATH"]
-args.sparse_estimator = bool(os.environ['SPARSE_ESTIMATOR'])
-
 def apply_clean():
   if args.worker_rank == 0 and args.clean_model and tf.io.gfile.exists(args.checkpoint_path):
     tf.logging.info("--clean_model flag set. Removing existing checkpoint_path dir:"
